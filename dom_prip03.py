@@ -1,0 +1,6 @@
+cenakus=float(input("Zadej cenu jedne jave:"))
+pocetkusu=int(input("Zadej pocet kusu:"))
+cena=int(cenakus*pocetkusu)
+cena2=float(f"{cenakus*pocetkusu:.2f}")
+print("Celková cena je:", cena)
+print("Celková cena je (2 desetinna mista):", cena2)
