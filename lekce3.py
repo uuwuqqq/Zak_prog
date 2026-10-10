@@ -39,6 +39,25 @@ roz_max=2**(bit)-1
 roz_min1=roz_max//(-2)
 roz_max1=roz_max//2
 print(f"{bit} bitu: 0 az {roz_max},"  f"{roz_min1} az {roz_max1}")
- '''
+
 #Dvojková soustava ručně
 cislo=int(input("Zadej nezaporne cele cislo"))
+a=""
+print("Cislo:",cislo)
+while cislo>0:    
+    b=cislo%2
+    cislo=cislo//2
+    a=str(b)+a
+
+print("Dvojkove:",a)
+pocet_bitu=len(a)
+print("Pocet bitu:", pocet_bitu)
+pocet_jednicek=a.count("1")#spocita jednicky
+print("Pocet jednicek:", pocet_jednicek)
+ '''
+#Četnost písmen 
+veta=str(input("Zadejte vetu:"))
+
+
+
+ 
