@@ -17,20 +17,63 @@ for position, diametr in enumerate (diameters, start=1): # enumerate with positi
 c=i/b*100
 print("Zmetku:", i, "z", b, "(",c,"%)")       
 #roky
-rok=int(input("Zadejte rok:"))
-print(rok, "je prestupny") if (rok %4 == 0 or rok%400 == 0) else print ("rok",rok, "neni prestupny")
-''' 
-prestupne=[]
-nepr=[]
-for rok1 in range(1800,2031,1):
-    if rok1%4==0 or rok1%400==0:
-        prestupne.append(str(rok1))
-    else:
-        nepr.append(str(rok1))
 
+rok=int(input("Zadejte rok:"))
+if (rok%4==0 and (rok%100!=0 or rok%400==0)):
+    print(f"Rok {rok} je prestupny")
+else:
+    print(f"Rok {rok} neni prestupny")
+
+prestupne = []
+neprestupne = []
+
+for rok in range(1890, 2031,1):
+    if rok%4==0 and (rok%100!=0 or rok%400==0):
+        prestupne.append(rok)
+    else:
+        neprestupne.append(rok)
+
+d1=len(prestupne)
 for i in range(0, len(prestupne), 10):
-    # Берем срез из 10 элементов и соединяем их пробелом или запятой
-    radek = " ".join(prestupne[i:i+10])
-    print("Prestupne roky:",radek)
+    print(prestupne[i:i+10])
+
+
+#Prvočísla
+#1
+cislo=int(input("Zadejte cele cislo:"))
+b=0
+for i in range(2,cislo,1):
+    if cislo%i==0:
+        b+=1
+    
+        
+if b==0:
+    print(f"{cislo} je prvocislo")
+else:
+    print(f"{cislo} neni prvocislo")
+    
+    #2
+prvocisla = []
+
+# Внешний цикл перебирает каждое число от 2 до 100
+for n in range(2, 101):
+    # Внутренний цикл ищет делители числа n (до корня из n)
+    for i in range(2, n):
+        if n % i == 0:
+            break  # Нашли делитель — значит, число не простое, прерываем внутренний цикл
+    else:
+        # Этот блок else выполнится ТОЛЬКО если цикл выше завершился без break,
+        # то есть делителей не нашлось вообще -> это простое число!
+        prvocisla.append(n)
+
+print("Prvočísla:", prvocisla)
+print("Počet:", len(prvocisla))
+'''
+#3
+cislo=int(input("Zadejte cislo:"))
+
+
+
+
 
 
