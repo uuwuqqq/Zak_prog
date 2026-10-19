@@ -103,7 +103,7 @@ for p in range(100, 1000):
        c=int(str(i)[2])
        if a**3 + b**3 + c**3 ==p:
               print(p)
- ''' 
+ 
 
 a = 2
 b = 3
@@ -130,7 +130,37 @@ print("Kořen:", c)
 
 
 
-  
+
+#Sikmy vrh
+import math
+V=int(input("Zadejte pocatkovou rychlost:"))
+a=int(input("Zadejte uhel vrhu ve stupnich:"))
+a = math.radians(a)  # převod úhlu na radiány
+V_x=V*math.cos(a)
+V_y=V*math.sin(a)
+t=0.0001
+dolet=[]
+vyska=[]
+cas=[]
+while t*V_y - 0.5*9.81*t**2 >=0 :
+    y=t*V_y - 0.5*9.81*t**2
+    x=t*V_x
+    print(f"t={t:.5f}, x={x:.5f}, y={y:.5f}")
+    dolet.append(x)
+    vyska.append(y)
+    cas.append(t)
+    t=t+0.0001
+print("dolet:",f"{max(dolet):.2f}")
+print("vyska:",f"{max(vyska):.2f}")
+print("cas:",f"{max(cas):.2f}")
+
+ ''' 
+
+
+
+
+
+
 
   
 
