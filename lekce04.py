@@ -51,7 +51,7 @@ if b==0:
     print(f"{cislo} je prvocislo")
 else:
     print(f"{cislo} neni prvocislo")
-    
+   
     #2
 prvocisla = []
 
@@ -68,9 +68,82 @@ for n in range(2, 101):
 
 print("Prvočísla:", prvocisla)
 print("Počet:", len(prvocisla))
-'''
+
 #3
-cislo=int(input("Zadejte cislo:"))
+
+cislo = int(input("Zadejte cislo: "))
+prvocinitele = []
+
+# Перебираем простые числа, которые мы уже нашли ранее
+for p in prvocisla:
+    while cislo % p == 0:
+        prvocinitele.append(p)
+        cislo = cislo // p
+    if cislo == 1:
+        break
+
+print("Prvočinitele:", prvocinitele)
+
+vyska=int(input("Zadejte liche cislo:"))
+while vyska%2==0 or vyska<1:
+    print(vyska,"neni liche cislo")
+    vyska=int(input("Zadejte LICHE cislo:"))
+
+for i in range(1, vyska+1,2):
+    mezery=(vyska-i)//2
+    print(" "*mezery+"*"*i)
+for i in range(vyska-2,0,-2):
+    mezery=(vyska-i)//2
+    print(" "*mezery+"*"*i)
+     
+for p in range(100, 1000):
+       i=str(p)
+       a=int(str(i)[0])
+       b=int(str(i)[1])
+       c=int(str(i)[2])
+       if a**3 + b**3 + c**3 ==p:
+              print(p)
+ ''' 
+
+a = 2
+b = 3
+t = 0
+tolerance = 1e-6  # требуемая точность 10^(-6)
+
+# Цикл работает, пока размер отрезка больше точности
+while (b - a) > tolerance:
+    c = (a + b) / 2  # ОБЯЗАТЕЛЬНО пересчитываем середину внутри цикла!
+    t += 1           # Считаем итерации
+    
+    # Значения функции в точках
+    f_c = c**3 - 2*c - 5
+    f_a = a**3 - 2*a - 5
+    
+    # Проверяем знак, чтобы понять, куда сдвигать границы
+    if f_a * f_c < 0:
+        b = c
+    else:
+        a = c
+
+print("Počet iterací:", t)
+print("Kořen:", c)
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+    
+
+
 
 
 
