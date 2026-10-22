@@ -1,5 +1,6 @@
-#1 hmotnosti trubky
 '''
+#1 hmotnosti trubky
+
 import math
 
 def circle_area(d):
@@ -13,11 +14,14 @@ def tube_cross_section(d_out, d_in):
 def tube_mass(d_out, d_in, length, density=7850):
     area = tube_cross_section(d_out, d_in)  # вызываем функцию сечения
     return area * length * density
-
+for i  in range (1,5):
+    b=i/100
+    print(f"Hmotnost ocelove trubky: {tube_mass(0.060, b, 6):.2f} kg")
 # Проверка
+
 print(f"Hmotnost ocelove trubky: {tube_mass(0.060, 0.050, 6):.2f} kg")
 print(f"Hmotnost hlinkove trubky:{tube_mass(0.060, 0.050, 6, 2700):.2f} kg")
-'''
+
 #2 prevod teplot
 def convert_temperature(value, from_unit, to_unit):
     if from_unit=="C":
@@ -41,14 +45,14 @@ def convert_temperature(value, from_unit, to_unit):
     else:
          print("Neplatna jednotka teploty")
          return None
-'''   
+  
 from_unit=input("Zadejte jednotku teploty ze ktere prevadite(C,F,K):").upper()
 to_unit=input("Zadejte jednotku teploty do ktere prevadite(C,F,K):").upper()
 value=float(input("Zadejte hodnotu teploty:"))  
 result=convert_temperature(value, from_unit, to_unit)
 if result!=None:
      print(f"Prevedena hodnota:{result}")
-'''     
+   
 c_f=[]     
 for i in range(-40, 101):
      from_unit="C"
@@ -74,6 +78,19 @@ for g in range(-40,101):
 print("C to F and to K conversion table:")
 for a, b, c in zip(c, c_f, c_k):
      print(f"{a} C = {b} F = {c} K")
+'''
+#ukol 3
+import math
+data=[2,4,4,4,5,5,7,9]
+def summary(values):
+    mean=sum(values)/len(values)
+    median=sorted(values)[len(values)/2]
+    std_dev=math.sqrt(sum((x-mean)**2 for x in values)/len(values))
+    min_max=(min(values), max(values))
+    return mean, median, std_dev, min_max
+print(summary(data))
+
+
 
 
 
