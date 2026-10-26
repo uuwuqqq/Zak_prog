@@ -78,7 +78,6 @@ for g in range(-40,101):
 print("C to F and to K conversion table:")
 for a, b, c in zip(c, c_f, c_k):
      print(f"{a} C = {b} F = {c} K")
-'''
 #ukol 3
 import math
 data=[2,4,4,4,5,5,7,9]
@@ -89,6 +88,90 @@ def summary(values):
     min_max=(min(values), max(values))
     return mean, median, std_dev, min_max
 print(summary(data))
+
+#ukol 4
+
+def normalize(birth_number):
+    return birth_number.replace("/","")
+    
+def is_valid(birth_number):
+    if  len(normalize(birth_number))==10 and int(normalize(birth_number))%11==0:
+        return "Platne"
+    else:
+        return "Neplatne"
+def gender(birth_number):
+    if int(normalize(birth_number)[2:4])>50:
+        return "Zena"
+    else:
+        return "Muz"
+def birth_date(birth_number):
+    cislo=normalize(birth_number)[4:6]
+    mesic=normalize(birth_number)[2:4]
+    if int(mesic) > 50:
+        mesic=int(mesic)-50
+    else:
+        mesic=int(mesic)
+    rok=normalize(birth_number)[0:2]
+    if int(rok)<54:
+        rok=int(rok)+2000
+    else:
+        rok=int(rok)+1900
+    return f"{cislo}.{mesic}.{rok}"
+
+birth_number=str(input("zadejte sve osobni cislo ve formatu RRMMDD/XXXX: "))
+if is_valid(birth_number)=="Platne":
+    print(f"{birth_number} -- {is_valid(birth_number)}, {gender(birth_number)}, {birth_date(birth_number)}")
+else:
+    print(f"{birth_number} -- {is_valid(birth_number)}")
+
+#ukol 6
+i=0
+def factorial(n):
+
+    if n==0:
+        return 1
+  
+    return n*factorial(n-1)
+print(factorial(7), i)  
+
+def fib(n, i):
+    
+    if n==0 or n==1:
+        i=i+1
+        return 1,i 
+    if n>1:
+        i=i+1
+        f1, i = fib(n-1, i)
+        f2, i = fib(n-2, i)
+        return f1+f2, i
+print (fib(25,0))
+
+memo={}
+def fib_memo(n,memo):
+'''
+#uko7 Hanojské věže
+i=0
+
+def hanoi(n, source, target, helper):
+    if n !=1:
+        global i
+        print(f"{source} ---> {target}")
+        i=i+1
+        n=n-1
+        print(f"{source} ---> {helper}")
+        i=i+1
+        n=n-1
+n=int(input("Zadejte pocet disku: "))
+hanoi(n, "A", "C", "B")
+
+
+
+
+    
+
+
+
+
 
 
 
