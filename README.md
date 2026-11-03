@@ -66,3 +66,121 @@
 * **List Comprehension (`[expression for item in iterable if condition]`)**
 * *Значение:* Компактный генератор списков, позволяющий в одну строчку создать и профильтровать новый список.
 * *Применение:* Быстрое создание списков без громоздких циклов с `append()` (например, отбор положительных квадратов чисел).
+
+Основные понятия
+Термин	Смысл
+cesta	где лежит файл (data/mereni.txt)
+soubor	последовательность байтов на диске
+souborový objekt	результат open(), поток данных
+kódování	правила преобразования str ↔ bytes
+formát	договорённость о содержимом (разделители, порядок, кодировка)
+Режимы открытия
+Режим	Смысл	Файла нет
+"r"	чтение	ошибка
+"w"	запись с начала (стирает файл при открытии)	создаётся
+"a"	дописывание в конец	создаётся
+"x"	создание нового (защита от перезаписи)	создаётся
+"b"	байты ("rb", "wb")	зависит от комбинации
+Шаблоны кода
+
+Запись:
+
+python
+with open("report.txt", "w", encoding="utf-8") as file:
+    file.write("text\n")
+
+Дописывание:
+
+python
+with open("journal.txt", "a", encoding="utf-8") as file:
+    file.write(f"{timestamp} | {message}\n")
+
+Построчное чтение:
+
+python
+with open("measurements.txt", encoding="utf-8") as file:
+    for line_number, line in enumerate(file, start=1):
+        cleaned = line.strip()
+        if not cleaned:
+            continue
+        ...
+
+Методы чтения: file.read() (всё), file.readline() (одна строка), file.readlines() (список строк).
+
+Разбор строки и валидация:
+
+python
+time_text, value_text = cleaned.split(";", maxsplit=1)
+try:
+    temperature = float(value_text)
+except ValueError:
+    invalid_lines.append(line_number)
+    continue
+measurements.append((time_text, temperature))
+
+Обработка отсутствующего файла:
+
+python
+try:
+    with open("measurements.txt", encoding="utf-8") as file:
+        first_line = file.readline()
+except FileNotFoundError:
+    print("Input file does not exist.")
+else:
+    print(first_line.rstrip("\n"))
+Очистка строк
+Метод	Что делает
+rstrip("\n")	убирает только перевод строки
+strip()	убирает пробелы, табуляции и переводы строк с обоих концов
+Текст и байты
+python
+text = "caf\u00e9"
+data = text.encode("utf-8")   # str -> bytes
+text2 = data.decode("utf-8")  # bytes -> str
+len(text)   # 4 символа
+len(data)   # 5 байтов
+
+Правило: encoding="utf-8" всегда указывать явно.
+
+Исключения
+Исключение	Причина
+FileNotFoundError	путь не существует
+PermissionError	нет прав
+IsADirectoryError	открыта папка, а не файл
+UnicodeDecodeError	байты не подходят под кодировку
+ValueError	неверный формат содержимого
+
+Правила: try минимальный, ловить конкретное исключение, не использовать except Exception без нужды, не игнорировать ошибки молча.
+
+pathlib
+python
+from pathlib import Path
+
+p = Path("outputs") / "report.txt"      # сборка пути оператором /
+p.parent.mkdir(parents=True, exist_ok=True)   # создать папку
+p.write_text("Done\n", encoding="utf-8")      # записать текст
+p.name        # имя с расширением
+p.stem        # имя без расширения
+p.suffix      # расширение (.lower() для сравнения)
+p.exists()    # существует?
+p.is_file()   # это файл?
+p.resolve()   # полный путь
+Path.cwd()    # текущая рабочая папка
+Path("photos").iterdir()   # обход одной папки
+Path("photos").glob("*.txt")    # выбор по шаблону
+Path("photos").rglob("*")       # с подпапками
+
+Относительный путь считается от рабочей папки, а не от папки скрипта.
+
+Бинарные данные
+python
+data = number.to_bytes(2, byteorder="little", signed=False)
+with open("number.bin", "wb") as file:
+    file.write(data)
+restored = int.from_bytes(data, byteorder="little", signed=False)
+
+Читателю нужно знать: число байтов, порядок байтов, знаковость.
+
+Архитектура программы
+
+load_data() → summarize() → write_report(). Одна функция, одна ответственность; вычисление не зависит от input()/print(); валидация до использования значения.
