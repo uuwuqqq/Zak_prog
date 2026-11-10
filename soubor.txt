@@ -1,0 +1,8 @@
+Uložte celá čísla 0 až 65 535 jednou jako text (jedno číslo na řádku) a podruhé jako dva bajty bez znaménka pomocí int.to_bytes().
+
+Porovnejte velikosti souborů pomocí Path.stat().st_size.
+Oba soubory znovu načtěte.
+Ověřte, že obnovené seznamy jsou stejné.
+Vysvětlete, proč binární soubor není čitelný v běžném editoru.
+Rozšíření: Prozkoumejte pořadí bajtů "little" a "big".
+
