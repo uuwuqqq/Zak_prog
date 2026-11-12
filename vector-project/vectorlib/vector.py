@@ -6,6 +6,5 @@ class Vector:
 
     def dimension(self)->int:
         return len(self.values)
-        
-    
-        
+    def __repr__(self) -> str:
+        return f"Vector({self.values})"
