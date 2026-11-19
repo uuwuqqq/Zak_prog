@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+</head>
+<body class="bg-transparent text-[var(--foreground)] antialiased p-3">
+  <div class="bg-[var(--card)] text-[var(--foreground)] border border-[var(--border)] rounded-xl p-4 shadow-sm max-w-2xl mx-auto flex flex-col gap-3">
+    
+    <!-- Top bar -->
+    <div class="flex items-center justify-between border-b border-[var(--border)] pb-2.5">
+      <div class="flex items-center gap-2">
+        <span class="text-xs font-semibold px-2 py-0.5 rounded bg-blue-500/10 text-blue-500 border border-blue-500/20">Python</span>
+        <span class="text-xs font-bold text-[var(--foreground)]">Řízení toku cyklů</span>
+      </div>
+      <div id="slide-badge" class="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-[var(--background)] border border-[var(--border)] text-[var(--muted-foreground)]">
+        1 / 5
+      </div>
+    </div>
+
+    <!-- Slide Navigation Tabs -->
+    <div class="flex gap-1.5 overflow-x-auto pb-0.5 text-xs">
+      <button onclick="goToSlide(0)" class="tab-btn px-2.5 py-1 rounded-md border text-center transition-all bg-[var(--primary)] text-[var(--primary-foreground)] border-transparent font-medium" data-index="0">1. Úvod</button>
+      <button onclick="goToSlide(1)" class="tab-btn px-2.5 py-1 rounded-md border text-center transition-all bg-[var(--background)] text-[var(--muted-foreground)] border-[var(--border)] hover:text-[var(--foreground)] font-medium" data-index="1">2. break</button>
+      <button onclick="goToSlide(2)" class="tab-btn px-2.5 py-1 rounded-md border text-center transition-all bg-[var(--background)] text-[var(--muted-foreground)] border-[var(--border)] hover:text-[var(--foreground)] font-medium" data-index="2">3. continue</button>
+      <button onclick="goToSlide(3)" class="tab-btn px-2.5 py-1 rounded-md border text-center transition-all bg-[var(--background)] text-[var(--muted-foreground)] border-[var(--border)] hover:text-[var(--foreground)] font-medium" data-index="3">4. pass</button>
+      <button onclick="goToSlide(4)" class="tab-btn px-2.5 py-1 rounded-md border text-center transition-all bg-[var(--background)] text-[var(--muted-foreground)] border-[var(--border)] hover:text-[var(--foreground)] font-medium" data-index="4">5. Srovnání</button>
+    </div>
+
+    <!-- Slide Display Area -->
+    <div id="slide-box" class="min-h-[240px] bg-[var(--background)] border border-[var(--border)] rounded-lg p-3.5 flex flex-col justify-between">
+      <!-- Injected by script -->
+    </div>
+
+    <!-- Navigation Buttons Only (No hint text) -->
+    <div class="flex items-center justify-end pt-1">
+      <div class="flex gap-2">
+        <button id="prev-btn" onclick="prevSlide()" class="px-3 py-1 rounded-md border border-[var(--border)] bg-[var(--background)] text-xs text-[var(--foreground)] hover:bg-[var(--card)] disabled:opacity-40">◀ Předchozí</button>
+        <button id="next-btn" onclick="nextSlide()" class="px-3 py-1 rounded-md border border-transparent bg-[var(--primary)] text-xs text-[var(--primary-foreground)] hover:opacity-90">Další ▶</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const slidesData = [
+      {
+        title: "Řízení toku cyklů: break, continue a pass",
+        html: `
+          <div class="space-y-2 text-xs">
+            <p class="text-[var(--foreground)] font-medium">Cykly <code class="bg-[var(--card)] px-1 py-0.5 rounded border border-[var(--border)]">for</code> a <code class="bg-[var(--card)] px-1 py-0.5 rounded border border-[var(--border)]">while</code> běžně procházejí všechny prvky sekvence.</p>
+            <p class="text-[var(--muted-foreground)]">V reálném kódu však potřebujeme průběh cyklu aktivně ovlivňovat:</p>
+            <ul class="space-y-1.5 list-disc pl-4 text-[var(--foreground)]">
+              <li><strong class="text-amber-500 font-mono">break</strong>: Okamžitě ukončí celý cyklus a program pokračuje za ním.</li>
+              <li><strong class="text-blue-500 font-mono">continue</strong>: Přeskočí zbytek těla cyklu a posune se na další prvek (iteraci).</li>
+              <li><strong class="text-emerald-500 font-mono">pass</strong>: Nedělá nic (NOP – No Operation). Slouží jako syntaktický zástupný symbol.</li>
+            </ul>
+          </div>
+        `
+      },
+      {
+        title: "break — Okamžité ukončení cyklu",
+        html: `
+          <div class="space-y-2 text-xs">
+            <p class="text-[var(--foreground)]">Přeruší provádění celého cyklu bez ohledu na zbývající prvky.</p>
+            <pre class="bg-[var(--card)] border border-[var(--border)] rounded p-2 font-mono text-[11px] overflow-x-auto text-[var(--foreground)]"><code>uzivatele = ["anna", "petr", "karel", "jana"]
+hledany = "petr"
+
+for u in uzivatele:
+    if u == hledany:
+        print(f"Uživatel {hledany} nalezen! Končím cyklus.")
+        break  # Karel a Jana se již vůbec nekontrolují
+
+print("Pokračování programu za cyklem...")</code></pre>
+            <div class="border-l-2 border-amber-500 pl-2 text-[var(--muted-foreground)] text-[11px]">
+              <strong>Reálné využití:</strong> Lineární vyhledávání v datech, obsluha opakovaných síťových pokusů (ukončení po úspěchu), ošetření kritických chyb.
+            </div>
+          </div>
+        `
+      },
+      {
+        title: "continue — Přeskočení aktuální iterace",
+        html: `
+          <div class="space-y-2 text-xs">
+            <p class="text-[var(--foreground)]">Ukončí pouze <strong>aktuální krok cyklu</strong> a přechází k dalšímu prvku.</p>
+            <pre class="bg-[var(--card)] border border-[var(--border)] rounded p-2 font-mono text-[11px] overflow-x-auto text-[var(--foreground)]"><code>platby = [120, -50, 0, 450, 80]
+
+for castka in platby:
+    if castka <= 0:
+        continue  # Přeskočí neplatnou platbu rovnou na další
+    
+    poplatek = castka * 0.02
+    print(f"Platba {castka} Kč zaúčtována (poplatek {poplatek} Kč)")</code></pre>
+            <div class="border-l-2 border-blue-500 pl-2 text-[var(--muted-foreground)] text-[11px]">
+              <strong>Reálné využití:</strong> Filtrování a sanitizace neplatných vstupů, vynechávání prázdných řádků a komentářů při parsování souborů (Guard Clauses).
+            </div>
+          </div>
+        `
+      },
+      {
+        title: "pass — Syntaktický zástupný symbol",
+        html: `
+          <div class="space-y-2 text-xs">
+            <p class="text-[var(--foreground)]">Příkaz, který <strong>neprovádí žádnou akci</strong>. V Pythonu odsazení tvoří bloky kódu — prázdné tělo by způsobilo syntaktickou chybu.</p>
+            <pre class="bg-[var(--card)] border border-[var(--border)] rounded p-2 font-mono text-[11px] overflow-x-auto text-[var(--foreground)]"><code># 1. Definice prázdné vlastní výjimky
+class DatabaseConnectionError(Exception):
+    pass
+
+# 2. Úmyslné tiché ignorování očekávané výjimky
+try:
+    os.remove("temp_log.txt")
+except FileNotFoundError:
+    pass
+
+# 3. Kostra funkce během návrhu (Scaffolding / TODO)
+def generovat_pdf_fakturu(objednavka):
+    pass</code></pre>
+            <div class="border-l-2 border-emerald-500 pl-2 text-[var(--muted-foreground)] text-[11px]">
+              <strong>Reálné využití:</strong> Architektonický návrh rozhraní před implementací, definice vlastních výjimek, tiché zachycení neškodných chyb.
+            </div>
+          </div>
+        `
+      },
+      {
+        title: "Srovnání a na co si dát pozor",
+        html: `
+          <div class="space-y-2 text-xs">
+            <div class="grid grid-cols-3 gap-1.5 text-center font-mono">
+              <div class="p-1.5 rounded border border-amber-500/30 bg-amber-500/10"><strong class="text-amber-500">break</strong><div class="text-[10px] text-[var(--foreground)]">Ukončí celý cyklus</div></div>
+              <div class="p-1.5 rounded border border-blue-500/30 bg-blue-500/10"><strong class="text-blue-500">continue</strong><div class="text-[10px] text-[var(--foreground)]">Skočí na další iteraci</div></div>
+              <div class="p-1.5 rounded border border-emerald-500/30 bg-emerald-500/10"><strong class="text-emerald-500">pass</strong><div class="text-[10px] text-[var(--foreground)]">Nemá vliv (placeholder)</div></div>
+            </div>
+            <div class="border-t border-[var(--border)] pt-1.5 text-[var(--muted-foreground)] space-y-1">
+              <p><strong>⚠️ Dva časté chytáky:</strong></p>
+              <ul class="list-disc pl-4 space-y-0.5 text-[var(--foreground)]">
+                <li><code class="font-mono">pass</code> <strong>nepřeskakuje</strong> následující kód! Kód pod ním se normálně vykoná.</li>
+                <li><code class="font-mono">break</code> vyskakuje <strong>pouze z nejvnitřnějšího</strong> cyklu.</li>
+              </ul>
+            </div>
+          </div>
+        `
+      }
+    ];
+
+    let current = 0;
+
+    function update() {
+      const slide = slidesData[current];
+      document.getElementById('slide-badge').innerText = (current + 1) + " / " + slidesData.length;
+      document.getElementById('slide-box').innerHTML = `
+        <div>
+          <h2 class="text-xs font-bold text-[var(--foreground)] mb-2">${slide.title}</h2>
+          ${slide.html}
+        </div>
+      `;
+
+      document.querySelectorAll('.tab-btn').forEach((btn, idx) => {
+        if (idx === current) {
+          btn.className = "tab-btn px-2.5 py-1 rounded-md border text-center transition-all bg-[var(--primary)] text-[var(--primary-foreground)] border-transparent font-medium";
+        } else {
+          btn.className = "tab-btn px-2.5 py-1 rounded-md border text-center transition-all bg-[var(--background)] text-[var(--muted-foreground)] border-[var(--border)] hover:text-[var(--foreground)] font-medium";
+        }
+      });
+
+      document.getElementById('prev-btn').disabled = (current === 0);
+      document.getElementById('next-btn').disabled = (current === slidesData.length - 1);
+    }
+
+    function goToSlide(i) { current = i; update(); }
+    function nextSlide() { if (current < slidesData.length - 1) { current++; update(); } }
+    function prevSlide() { if (current > 0) { current--; update(); } }
+
+    update();
+  </script>
+</body>
+</html>
