@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Anna",
+    "score": 92,
+    "passed": true
+  },
+  {
+    "name": "Petr",
+    "score": 71,
+    "passed": true
+  },
+  {
+    "name": "Eva",
+    "score": 70,
+    "passed": false
+  }
+]

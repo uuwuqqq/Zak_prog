@@ -1,0 +1,14 @@
+{
+  "name": "Programování",
+  "teacher": "Dr. Novák",
+  "students": [
+    {
+      "name": "Anna",
+      "score": 92
+    },
+    {
+      "name": "Petr",
+      "score": 71
+    }
+  ]
+}
