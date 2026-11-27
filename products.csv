@@ -1,0 +1,4 @@
+id,name,price,in_stock
+1,keyboard,89,True
+2,monitor,499,False
+3,mouse,35,True

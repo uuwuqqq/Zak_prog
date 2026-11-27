@@ -1,0 +1,30 @@
+{
+  "classes": [
+    {
+      "name": "1A",
+      "students": [
+        {
+          "name": "Anna",
+          "grade": 1
+        },
+        {
+          "name": "Petr",
+          "grade": 2
+        }
+      ]
+    },
+    {
+      "name": "2B",
+      "students": [
+        {
+          "name": "Eva",
+          "grade": 1
+        },
+        {
+          "name": "Marek",
+          "grade": 3
+        }
+      ]
+    }
+  ]
+}

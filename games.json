@@ -1,0 +1,17 @@
+[
+  {
+    "title": "Portal",
+    "year": 2007,
+    "completed": true
+  },
+  {
+    "title": "Hades",
+    "year": 2020,
+    "completed": false
+  },
+  {
+    "title": "Celeste",
+    "year": 2018,
+    "completed": true
+  }
+]
